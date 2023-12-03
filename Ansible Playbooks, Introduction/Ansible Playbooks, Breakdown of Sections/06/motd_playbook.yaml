@@ -26,7 +26,7 @@
   handlers:
     - name: MOTD changed
       debug:
-        msg: The MOTD was changed
+        msg: The MOTD was changed to {{motd}}
 
   # Roles: list of roles to be imported into the play
 
