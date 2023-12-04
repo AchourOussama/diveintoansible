@@ -1,3 +1,11 @@
 ---
 extra_vars_key: extra vars value
+days:
+  - monday
+  - friday
+dict:
+  key1: value1
+  key2: value2
+inline_dict: 
+  {key1: value1, key2: value2}
 ...

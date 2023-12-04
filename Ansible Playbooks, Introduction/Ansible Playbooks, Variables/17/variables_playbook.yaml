@@ -7,14 +7,28 @@
  
   # Hosts: where our play will run and options it will run with
   hosts: centos1
+  gather_facts: false
  
   # Vars: variables that will apply to the play, on all target systems
-
+  vars_files: 
+    - extra_vars_file.yaml
+  vars_prompt:
+    - name: dictionary_key
+      private: false
   # Tasks: the list of tasks that will be executed within the playbook
   tasks:
     - name: Test extra vars
       debug:
         msg: "{{ extra_vars_key }}"
-
+    - name: Reading from list 
+      debug:
+        msg: "{{days.0}}" 
+    - name: Reading from dictionary
+      debug:
+        msg: "{{dict[dictionary_key]}}"
+    - name: Reading from inline dictionary
+      debug:
+        msg: "{{inline_dict}}"
+        
 # Three dots indicate the end of a YAML document
 ...
