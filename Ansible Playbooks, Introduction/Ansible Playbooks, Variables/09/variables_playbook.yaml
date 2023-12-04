@@ -6,7 +6,7 @@
 -
  
   # Hosts: where our play will run and options it will run with
-  hosts: centos1
+  hosts: linux
   gather_facts: True
  
   # Vars: variables that will apply to the play, on all target systems
@@ -15,11 +15,24 @@
   tasks:
     - name: Test hostvars with an ansible fact and collect ansible_port, dot notation
       debug:
-        msg: "{{ hostvars[ansible_hostname].ansible_port }}"
+        msg: "{{ hostvars[ansible_hostname].ansible_port | default ('none')}}"
 
     - name: Test hostvars with an ansible fact and collect ansible_port, dict notation
       debug:
-        msg: "{{ hostvars[ansible_hostname]['ansible_port'] }}"
- 
+        msg: "{{ hostvars[ansible_hostname]['ansible_port'] | default('none') }}"
+    
+    
+    # accessing a group var : method1
+    - name : Showing the ansible_become_pass of ubuntu hosts 
+      debug:
+        msg: "{{ hostvars[item]['ansible_become_pass'] }}"
+      with_items: "{{groups['ubuntu']}}"
+      when: ansible_distribution == "Ubuntu"
+    # accessing a group var : method2 
+    # - name : Showing the ansible_become_pass of ubuntu hosts 
+    #   debug:
+    #     msg: "{{ hostvars[groups['ubuntu'].0]['ansible_become_pass'] }}"
+    #   when: ansible_distribution == "Ubuntu"
+        
 # Three dots indicate the end of a YAML document
 ...
