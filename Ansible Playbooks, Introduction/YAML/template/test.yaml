@@ -1,6 +1,36 @@
 # Every YAML file should start with three dashes
 ---
- 
+
+cars_manifacturer:
+  - Aston Martin
+  - Fiat
+  - Ford
+  - Vauxholl
+dict_cars_manifacturer:
+  Aston Martin:
+    year_founded:
+    website:
+    founded_by:
+      - founder1
+      - founder2
+  Fiat:
+    year_founded:
+    website:
+    founded_by:
+      - founder1
+      - founder2
+  Ford:
+    year_founded:
+    website:
+    founded_by:
+      - founder1
+      - founder2
+  Vauxholl:
+    year_founded:
+    website:
+    founded_by:
+      - founder1
+      - founder2
  
 # Every YAML file should end with three dots
 ...
