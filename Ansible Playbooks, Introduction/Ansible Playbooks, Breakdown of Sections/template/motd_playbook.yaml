@@ -4,6 +4,36 @@
 # The minus in YAML this indicates a list item.  The playbook contains a list 
 # of plays, with each play being a dictionary
 -
+  hosts: linux
+  vars:
+    hostname: "{{ansible_hostname}}"
+    
+  tasks:
+    - name: Pinging linux hosts
+      ansible.builtin.ping:
+
+    - name: Copy file to ubuntu
+      ansible.builtin.copy:
+        src: 60-ansible-motd
+        dest: /etc/update-motd.d/60-ansible-motd
+        mode: preserve
+      when: ansible_distribution== "Ubuntu"
+      notify: check change
+          
+    - name: Copy file to centos
+      ansible.builtin.copy:
+        src: 60-ansible-motd
+        dest: /etc/motd
+        mode: preserve
+      when: ansible_distribution== "CentOS"
+      notify: check change
+          
+  handlers:
+    - name: check change
+      ansible.builtin.debug:
+        msg: "Change occured in {{hostname}}"
+        
+        
 
   # Hosts: where our play will run and options it will run with
 
